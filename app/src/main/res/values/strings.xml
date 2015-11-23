@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">FindMeetingRoom</string>
+    <string name="app_name">FMR App</string>
+    <string name="w_message">Bienvenue !</string>
+    <string name="c_button">Connexion</string>
+    <string name="p_button">Edition profil</string>
 </resources>
