@@ -1,14 +1,14 @@
 package com.net.sopra.findmeetingroom;
 
-// import android.support.v7.app.AppCompatActivity;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.app.AlertDialog;
-//import android.widget.Button;
+import android.content.Intent;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
+
 
 public class MainActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
 
@@ -34,16 +34,12 @@ public class MainActivity extends Activity implements View.OnTouchListener, View
         // On récupère l'identifiant de la vue, et en fonction de cet identifiant…
         switch(v.getId()) {
 
-            // Si l'identifiant de la vue est celui du premier bouton
             case R.id.About:
-    /* Agir pour notre "label" */
                 this.showAbout();
-
                 break;
             case R.id.connect:
-    /* Agir pour la pression du bouton connect*/
-
-
+                Intent intent = new Intent(MainActivity.this, MenuActivity.class );
+                startActivity(intent);
                 break;
         }
     }
