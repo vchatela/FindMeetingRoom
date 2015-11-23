@@ -1,47 +1,57 @@
 package com.net.sopra.findmeetingroom;
 
 import android.support.v7.app.AppCompatActivity;
-import android.app.Dialog;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
 
-    private Button myB1;
-    private Button myB2;
-    private final static int ID_DIALOG = 0;
+    private TextView b;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // views retrieval and listener association
-        myB1 = (Button)findViewById(R.id.b1);
-        myB2 = (Button)findViewById(R.id.b2);
-        myB1.setOnClickListener(b1listener);
-        myB2.setOnClickListener(b2listener);
+        b = (TextView) findViewById(R.id.Apropos);
+        b.setOnTouchListener(this);
+        b.setOnClickListener(this);
+
+
+
     }
 
-    private OnClickListener b1listener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        }
-    };
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
+    }
 
-    private OnClickListener b2listener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            showDialog(ID_DIALOG);
-        }
-    };
+    @Override
+    public void onClick(View v) {
 
-    public Dialog onCreateDialog(int id) {
-        Dialog myD = new Dialog(this);
-        myD.setTitle("Edition du profil...");
-        return myD;
+        // On récupère l'identifiant de la vue, et en fonction de cet identifiant…
+        switch(v.getId()) {
+
+            // Si l'identifiant de la vue est celui du premier bouton
+            case R.id.Apropos:
+    /* Agir pour notre "label" */
+
+
+                break;
+            case R.id.Connect:
+    /* Agir pour la pression du bouton connect*/
+
+
+                break;
+
+
+    /* etc. */
+        }
+
+
     }
 }
