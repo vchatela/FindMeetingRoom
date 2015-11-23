@@ -37,10 +37,6 @@ public class MainActivity extends Activity implements View.OnTouchListener, View
             case R.id.About:
                 this.showAbout();
                 break;
-            case R.id.connect:
-                Intent intent = new Intent(MainActivity.this, MenuActivity.class );
-                startActivity(intent);
-                break;
         }
     }
 
@@ -60,6 +56,13 @@ public class MainActivity extends Activity implements View.OnTouchListener, View
         builder.setView(messageView);
         builder.create();
         builder.show();
+
+    }
+
+    public void Gomain(View view) {
+        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+        startActivity(intent);
+
 
     }
 }
