@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">FMR App</string>
+<<<<<<< Updated upstream
     <string name="about">A propos</string>
     <string name="connect">Connexion</string>
+=======
+<<<<<<< HEAD
+    <string name="Logo">Logo</string>
+    <string name="app_credits">valuuuuue</string>
+    <string name="app_descrip">Description</string>
+=======
+    <string name="about">A propos</string>
+    <string name="connect">Connexion</string>
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 </resources>
