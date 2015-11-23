@@ -10,7 +10,7 @@
         android:text="Critères de recherche :"
         android:textStyle="bold"
         android:id="@+id/textView2"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -19,7 +19,7 @@
         android:layout_height="55dp"
         android:id="@+id/spinner"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true" />
 
     <Spinner
@@ -27,7 +27,7 @@
         android:layout_height="55dp"
         android:id="@+id/spinner2"
         android:layout_below="@+id/spinner"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -37,19 +37,19 @@
         android:text="Date"
         android:id="@+id/button2"
         android:layout_below="@+id/spinner2"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/editText"
         android:layout_toStartOf="@+id/editText" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="160dp"
+        android:layout_width="190dp"
         android:layout_height="55dp"
         android:text="Heure début"
         android:id="@+id/button3"
         android:layout_below="@+id/button2"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentLeft="true"/>
 
     <EditText
@@ -66,7 +66,7 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="160dp"
+        android:layout_width="190dp"
         android:layout_height="55dp"
         android:text="Heure fin"
         android:id="@+id/button4"
@@ -80,7 +80,7 @@
         android:layout_height="55dp"
         android:text="Particularités"
         android:id="@+id/button5"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/button3"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
