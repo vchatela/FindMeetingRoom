@@ -1,10 +1,8 @@
 package com.net.sopra.findmeetingroom;
 
-
-import android.app.Activity;
 // import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
-import android.app.Dialog;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.app.AlertDialog;
@@ -16,6 +14,14 @@ public class MainActivity extends Activity implements View.OnTouchListener, View
 
     private TextView b;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        b = (TextView)findViewById(R.id.About);
+        b.setOnClickListener(this);
+    }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -60,6 +66,4 @@ public class MainActivity extends Activity implements View.OnTouchListener, View
         builder.show();
 
     }
-
-
 }
