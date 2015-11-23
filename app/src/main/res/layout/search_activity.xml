@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Critères de recherche :"
-        android:textStyle="bold"
+        android:textStyle="bold|italic"
         android:id="@+id/textView2"
         android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
