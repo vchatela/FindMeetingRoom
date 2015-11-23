@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">FindMeetingRoom</string>
+    <string name="app_name">FMR App</string>
+    <string name="Logo">Logo</string>
 </resources>
