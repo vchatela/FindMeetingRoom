@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FMR App</string>
-    <string name="Logo">Logo</string>
+    <string name="about">A propos</string>
+    <string name="connect">Connexion</string>
 </resources>

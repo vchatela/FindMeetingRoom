@@ -1,28 +1,27 @@
 package com.net.sopra.findmeetingroom;
 
-import android.support.v7.app.AppCompatActivity;
+// import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
+public class MainActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
 
     private TextView b;
-
+    private final static int ID_DIALOG = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        b = (TextView) findViewById(R.id.Apropos);
+        b = (TextView) findViewById(R.id.about);
         b.setOnTouchListener(this);
         b.setOnClickListener(this);
-
-
-
     }
 
     @Override
@@ -33,25 +32,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     public void onClick(View v) {
 
-        // On récupère l'identifiant de la vue, et en fonction de cet identifiant…
+        // getting the view id and reacting accordingly
         switch(v.getId()) {
 
-            // Si l'identifiant de la vue est celui du premier bouton
-            case R.id.Apropos:
-    /* Agir pour notre "label" */
-
-
-                break;
-            case R.id.Connect:
-    /* Agir pour la pression du bouton connect*/
-
-
+            case R.id.about:
                 break;
 
-
-    /* etc. */
+            case R.id.connect:
+                break;
         }
-
-
     }
 }
