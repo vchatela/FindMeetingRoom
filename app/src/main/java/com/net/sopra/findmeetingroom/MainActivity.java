@@ -12,7 +12,6 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
 
     private TextView b;
-    private final static int ID_DIALOG = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
