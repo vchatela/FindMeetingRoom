@@ -35,6 +35,14 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         startActivity(intent);
     }
 
+    //switching to the profile activity
+    public void goProfile(View v) {
+        Intent intent = new Intent(MenuActivity.this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
+
+
     // prevents returning to MainActivity
     @Override
     public void onBackPressed() {

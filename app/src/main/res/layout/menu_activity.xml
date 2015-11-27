@@ -26,6 +26,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/Research"
         android:layout_alignStart="@+id/Research"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginBottom="50dp"
+        android:onClick="goProfile" />
 
 </RelativeLayout>
