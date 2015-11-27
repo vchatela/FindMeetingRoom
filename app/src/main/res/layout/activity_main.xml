@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:id="@+id/logo"
+        android:id="@+id/Logo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="Logo"
@@ -20,11 +20,10 @@
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:text="@string/connect"
-        android:id="@+id/connect"
+        android:id="@+id/Connect"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
-        android:onClick="Gomain"
         android:clickable="true" />
 
     <TextView
@@ -32,7 +31,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="italic"
-        android:text="About"
+        android:text="@string/about"
         android:id="@+id/About"
         android:editable="false"
         android:clickable="true"

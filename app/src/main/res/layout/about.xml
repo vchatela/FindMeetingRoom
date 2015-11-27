@@ -14,10 +14,11 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="@string/app_descrip"
-        android:textColor="?android:attr/textColorPrimaryInverse" />
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        android:id="@+id/Description" />
 
     <TextView
-        android:id="@+id/about_credits"
+        android:id="@+id/AboutCredits"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20dip"

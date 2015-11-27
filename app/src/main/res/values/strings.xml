@@ -2,7 +2,16 @@
     <string name="app_name">FMR App</string>
     <string name="about">A propos</string>
     <string name="connect">Connexion</string>
-    <string name="app_credits">valuuuuue</string>
-    <string name="app_descrip">Description</string>
-    <string name="title_activity_search">SearchActivity</string>
+    <string name="app_credits">4I, groupe BE A11</string>
+    <string name="app_descrip">internal build</string>
+    <string name="s_room">Chercher Salle</string>
+    <string name="s_profile">Editer Profil</string>
+    <string name="search_c">Critères de recherche :</string>
+    <string name="search_d">Date début</string>
+    <string name="search_df">Date fin</string>
+    <string name="search_n">Nb personnes</string>
+    <string name="search_ha">Heure début</string>
+    <string name="search_hb">Heure fin</string>
+    <string name="search_p">Particularités</string>
+    <string name="search_s">RECHERCHER</string>
 </resources>
