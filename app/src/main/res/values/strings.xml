@@ -14,4 +14,6 @@
     <string name="search_hb">Heure fin</string>
     <string name="search_p">Particularités</string>
     <string name="search_s">RECHERCHER</string>
+    <string name="profile_t">Sélectionnez site et batiment préférés :</string>
+    <string name="profile_confirm">OK</string>
 </resources>

@@ -9,28 +9,30 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ProfileActivity extends Activity  {
+public class ProfileActivity extends Activity implements View.OnClickListener {
+
+    private Button OK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setprofile);
+
+        OK = (Button) findViewById(R.id.Oprofile);
+        OK.setOnClickListener(this);
     }
 
+    public void onClick(View v) {
+        switch (v.getId()) {
 
+            case R.id.Oprofile:
+                this.buttonOK();
+                break;
+        }
+    }
 
-
-
-  protected void ButtonOK()
-  {
-      Intent intent = new Intent(ProfileActivity.this, MenuActivity.class);
-      startActivity(intent);
-
-  }
-
-
-
-
-
-
+    protected void buttonOK()
+    {
+        onBackPressed();
+    }
 }

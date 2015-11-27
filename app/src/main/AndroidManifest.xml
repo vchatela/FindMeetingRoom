@@ -8,15 +8,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity" android:screenOrientation = "portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".ProfileActivity"/>
+        <activity android:name=".MenuActivity" android:screenOrientation = "portrait"/>
+        <activity android:name=".SearchActivity" android:screenOrientation = "portrait"/>
+        <activity android:name=".ProfileActivity" android:screenOrientation = "portrait"/>
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
