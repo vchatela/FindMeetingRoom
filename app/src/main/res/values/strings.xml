@@ -1,4 +1,6 @@
 <resources>
+    <!-- http://localhost:80/services -->
+    <string name="services_url">http://10.32.2.221:8080/RestWebServiceDemo/rest/person</string>
     <string name="app_name">FMR App</string>
     <string name="about">A propos</string>
     <string name="connect">Connexion</string>
