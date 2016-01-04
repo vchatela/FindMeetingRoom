@@ -29,7 +29,7 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Locations"
+        android:id="@+id/LocationsP"
         android:layout_below="@+id/TitleP"
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"/>
@@ -37,8 +37,8 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Buildings"
-        android:layout_below="@+id/Locations"
+        android:id="@+id/BuildingsP"
+        android:layout_below="@+id/LocationsP"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -17,7 +17,7 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="55dp"
-        android:id="@+id/Locations"
+        android:id="@+id/LocationsS"
         android:layout_below="@+id/Criteria"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true" />
@@ -25,8 +25,8 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="55dp"
-        android:id="@+id/Buildings"
-        android:layout_below="@+id/Locations"
+        android:id="@+id/BuildingsS"
+        android:layout_below="@+id/LocationsS"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true" />
 
@@ -35,7 +35,7 @@
         android:layout_height="55dp"
         android:text="@string/search_d"
         android:id="@+id/Date"
-        android:layout_below="@+id/Buildings"
+        android:layout_below="@+id/BuildingsS"
         android:layout_marginTop="20dp"
         android:layout_alignParentLeft="true" />
 
@@ -53,7 +53,7 @@
         android:layout_height="55dp"
         android:text="@string/search_ha"
         android:id="@+id/TimeA"
-        android:layout_below="@+id/Buildings"
+        android:layout_below="@+id/BuildingsS"
         android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"/>
 

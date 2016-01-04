@@ -29,6 +29,12 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    // prevents returning to MainActivity
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     // switching to the next activity
     public void goSearch() {
         Intent intent = new Intent(MenuActivity.this, SearchActivity.class);
@@ -39,14 +45,6 @@ public class MenuActivity extends Activity implements View.OnClickListener {
     public void goProfile(View v) {
         Intent intent = new Intent(MenuActivity.this, ProfileActivity.class);
         startActivity(intent);
-    }
-
-
-
-    // prevents returning to MainActivity
-    @Override
-    public void onBackPressed() {
-        //moveTaskToBack(true);
     }
 
 }

@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
 
-    private static final String TAG = "MainActivity";
-
     // used to print the about
     private TextView a;
 
@@ -40,7 +38,6 @@ public class MainActivity extends Activity implements View.OnTouchListener, View
 
     @Override
     public void onClick(View v) {
-
         // getting the view id
         switch (v.getId()) {
 
@@ -48,7 +45,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, View
                 this.showAbout();
                 break;
             case R.id.Connect:
-                this.retrieveLocationsAndBuildings();
+                this.retrieveLBO();
                 this.Menu();
                 break;
         }
@@ -87,15 +84,11 @@ public class MainActivity extends Activity implements View.OnTouchListener, View
         startActivity(intent);
     }
 
-    public void retrieveLocationsAndBuildings() {
-
-        // A MODIFIER AVEC  A) LA BONNE IP POUR LE TEST  B) L'URL CORRECTE DU SERVICE
-        String theURL = getResources().getString(R.string.services_url) + "/sample/";
-
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_TASK, this, "Connecting...");
-
+    public void retrieveLBO() {
+        // A MODIFIER : URL POUR LE TEST (DANS LES RESSOURCES STRING) + NOM DU SERVICE
+        String theURL = getResources().getString(R.string.services_url) + "/connect";
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.GET_PREF_TASK, this, "Connecting...");
         wst.execute(new String[]{theURL});
-
     }
 
 }
