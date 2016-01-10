@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -17,26 +20,32 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class WebServiceTask extends AsyncTask<String, Integer, String> {
 
     public static final String preferencesname = "FMRprefs";
     public static final String preferencesBuildings = "bPrefs";
+    public static final String preferencesBuildingsIDREF = "bPrefsIDREF";
     public static final String preferencesLocations = "lPrefs";
-    public static final String preferencesOptions = "oPrefs";
+    public static final String preferencesLocationsID = "lPrefsID";
+    public static final String preferencesSpecifications = "sPrefs";
 
     public static final String favoriteBuilding = "fBui";
     public static final String favoriteLocation = "fLoc";
 
-    public static final int GET_PREF_TASK = 1;
-    public static final int POST_REQ_TASK = 2;
+    public static final int GET_BL_TASK = 1;
+    public static final int GET_LL_TASK = 2;
+    public static final int GET_SL_TASK = 3;
+    public static final int POST_REQ_TASK = 4;
 
     private static final String TAG = "WebServiceTask";
 
@@ -125,7 +134,9 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
                     response = httpclient.execute(httppost);
                     break;
 
-                case GET_PREF_TASK:
+                case GET_BL_TASK:
+                case GET_LL_TASK:
+                case GET_SL_TASK:
 
                     HttpGet httpget = new HttpGet(url);
                     response = httpclient.execute(httpget);
@@ -159,50 +170,105 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
         return total.toString();
     }
 
-    // TRAITEMENTS A FAIRE EVOLUER
+    // TRAITEMENTS
     public void handleResponse(String response) {
 
         try {
-            JSONObject jso = new JSONObject(response);
+
+            // saving in SharedPreferences
+            SharedPreferences prefs = mContext.getSharedPreferences(preferencesname, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+
+            //String reader;
+            StringReader reader = new StringReader(response);
+
+            Gson gson = new Gson();
+
+            int i;
 
             switch (taskType) {
 
-                case GET_PREF_TASK:
+                case GET_BL_TASK:
 
-                    // example of expected JSON : {"buildingsList":"B1/B2","locationList":"L1/L2","optionsList":"Telephone/Videoprojecteur","result":""}
-                    String buildingsList = jso.getString("buildingsList");
-                    String locationsList = jso.getString("locationList");
-                    String optionsList = jso.getString("optionsList");
+                    Type typeB = new TypeToken<ArrayList<Building>>() {}.getType();
+                    ArrayList<Building> buildingsList = gson.fromJson(reader, typeB);
+                    int nbB = buildingsList.size();
+                    String[] partsB = new String[nbB];
+                    String[] partsBIDREF = new String[nbB];
 
-                    String[] partsB = buildingsList.split("#");
-                    int nbB = partsB.length;
-                    String[] partsL = locationsList.split("#");
-                    int nbL = partsL.length;
-                    String[] partsO = optionsList.split("#");
-                    int nbO = partsL.length;
-
-                    // saving in SharedPreferences
-                    SharedPreferences prefs = mContext.getSharedPreferences(preferencesname, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
+                    i=0;
+                    Iterator<Building> itB = buildingsList.iterator();
+                    Building tempB;
+                    while (itB.hasNext()) {
+                        tempB = itB.next();
+                        partsB[i] = tempB.getnom();
+                        partsBIDREF[i] = String.valueOf(tempB.getLocation());
+                        i++;
+                    }
 
                     editor.putInt(preferencesBuildings + "_size", nbB);
-                    for(int i=0;i<nbB;i++) {
-                        editor.putString(preferencesBuildings + "_" + i, partsB[i]);
-                    }
-                    editor.putInt(preferencesLocations +"_size", nbL);
-                    for(int i=0;i<nbL;i++) {
-                        editor.putString(preferencesLocations + "_" + i, partsL[i]);
-                    }
-                    editor.putInt(preferencesOptions +"_size", nbO);
-                    for(int i=0;i<nbO;i++) {
-                        editor.putString(preferencesOptions + "_" + i, partsO[i]);
+                    editor.putInt(preferencesBuildingsIDREF + "_size", nbB);
+                    for(int j=0;j<nbB;j++) {
+                        editor.putString(preferencesBuildings + "_" + j, partsB[j]);
+                        editor.putString(preferencesBuildingsIDREF + "_" + j, partsBIDREF[j]);
                     }
                     editor.commit();
+
+                    break;
+
+                case GET_LL_TASK:
+
+                    Type typeL = new TypeToken<ArrayList<Location>>() {}.getType();
+                    ArrayList<Location> locationsList = gson.fromJson(reader, typeL);
+                    int nbL = locationsList.size();
+                    String[] partsL = new String[nbL];
+                    String[] partsLID = new String[nbL];
+
+                    i=0;
+                    Iterator<Location> itL = locationsList.iterator();
+                    Location tempL;
+                    while (itL.hasNext()) {
+                        tempL = itL.next();
+                        partsL[i] = tempL.getnom();
+                        partsLID[i] = String.valueOf(tempL.getID());
+                        i++;
+                    }
+
+                    editor.putInt(preferencesLocations + "_size", nbL);
+                    editor.putInt(preferencesLocationsID + "_size", nbL);
+                    for(int j=0;j<nbL;j++) {
+                        editor.putString(preferencesLocations + "_" + j, partsL[j]);
+                        editor.putString(preferencesLocationsID + "_" + j, partsLID[j]);
+                    }
+                    editor.commit();
+
+                    break;
+
+                case GET_SL_TASK:
+
+                    Type typeS = new TypeToken<ArrayList<Specification>>() {}.getType();
+                    ArrayList<Specification> specificationsList = gson.fromJson(reader, typeS);
+                    int nbS = specificationsList.size();
+                    String[] partsS = new String[nbS];
+
+                    i=0;
+                    Iterator<Specification> itS = specificationsList.iterator();
+                    while (itS.hasNext()) {
+                        partsS[i] = itS.next().getSpecificationName();
+                        i++;
+                    }
+
+                    editor.putInt(preferencesSpecifications + "_size", nbS);
+                    for(int j=0;j<nbS;j++) {
+                        editor.putString(preferencesSpecifications + "_" + j, partsS[j]);
+                    }
+                    editor.commit();
+
                     break;
 
                 case POST_REQ_TASK:
 
-                    ResultActivity.baseResult = jso.getString("result");
+                    ResultActivity.baseResult = response;
                     break;
             }
 

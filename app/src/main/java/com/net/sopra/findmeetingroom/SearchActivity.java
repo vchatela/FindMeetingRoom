@@ -3,6 +3,7 @@ package com.net.sopra.findmeetingroom;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.Collator;
 import java.text.SimpleDateFormat;
@@ -44,6 +46,11 @@ public class SearchActivity extends Activity implements View.OnClickListener {
     private TimePickerDialog tDiag;
     private TimePickerDialog tDiagBis;
     private SimpleDateFormat dateFTime;
+
+    private Context ref;
+
+    private ArrayAdapter<String> adapterL;
+    private ArrayAdapter<String> adapterB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,58 +91,158 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.Search:
-                retrieveR();
-                Results();
+                Spinner spinnerL = (Spinner) findViewById(R.id.LocationsS);
+                String selectedLocation = spinnerL.getSelectedItem().toString();
+                EditText etextBD = (EditText) findViewById(R.id.Date);
+                String selectedBeginDate = etextBD.getText().toString();
+                EditText etextBH = (EditText) findViewById(R.id.TimeA);
+                String selectedBeginHour = etextBH.getText().toString();
+                EditText etextED= (EditText) findViewById(R.id.DateF);
+                String selectedEndDate = etextED.getText().toString();
+                EditText etextEH = (EditText) findViewById(R.id.TimeB);
+                String selectedEndHour = etextEH.getText().toString();
+                EditText etextN = (EditText) findViewById(R.id.NumberPeople);
+                String selectedNumber = etextN.getText().toString();
+                Boolean check1 = (selectedLocation.equals(getResources().getString(R.string.loc)));
+                Boolean check2 = (selectedBeginDate.equals(getResources().getString(R.string.search_d)));
+                Boolean check3 = (selectedEndDate.equals(getResources().getString(R.string.search_df)));
+                Boolean check4 = (selectedBeginHour.equals(getResources().getString(R.string.search_ha)));
+                Boolean check5 = (selectedEndHour.equals(getResources().getString(R.string.search_hb)));
+                Boolean check6 = (selectedNumber.equals(getResources().getString(R.string.search_n)));
+                if (check1 || check2 || check3 || check4 || check5 || check6)
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.sel_error), Toast.LENGTH_LONG).show();
+                else {
+                    retrieveR();
+                    Results();
+                }
                 break;
         }
     }
 
     // used to set the content of the Spinners
     public void setSpinner() {
-        String[] buildingstemp = ProfileActivity.loadArray(WebServiceTask.preferencesBuildings, this);
-        String[] locationstemp = ProfileActivity.loadArray(WebServiceTask.preferencesLocations, this);
 
-        String theB = ProfileActivity.loadString(WebServiceTask.favoriteBuilding, this);
+        final String[] locationstemp = ProfileActivity.loadArray(WebServiceTask.preferencesLocations, this);
+        final String[] locationstempID = ProfileActivity.loadArray(WebServiceTask.preferencesLocationsID, this);
+
+        final String[] buildingstemp = ProfileActivity.loadArray(WebServiceTask.preferencesBuildings, this);
+        final String[] buildingstempIDREF = ProfileActivity.loadArray(WebServiceTask.preferencesBuildingsIDREF, this);
+
         String theL = ProfileActivity.loadString(WebServiceTask.favoriteLocation, this);
+        String theB = ProfileActivity.loadString(WebServiceTask.favoriteBuilding, this);
 
-        if  (theB==null)
-            theB = "Batiment";
-        if  (theL==null)
-            theL = "Site";
+        final int nbL = locationstemp.length;
+        final int nbB = buildingstemp.length;
 
-        String[] buildings = new String[buildingstemp.length + 1];
-        String[] locations = new String[locationstemp.length + 1];
-        locations[0]=theL;
-        buildings[0]=theB;
-        System.arraycopy(locationstemp, 0, locations, 1, locationstemp.length);
-        System.arraycopy(buildingstemp, 0, buildings, 1, buildingstemp.length);
+        String[] locations;
 
-        final Spinner spinnerB = (Spinner) findViewById(R.id.BuildingsS);
+        String IDtheL;
+        IDtheL = "";
+        if (theL == null) {
+            theL = getResources().getString(R.string.loc);
+            locations = new String[nbL + 1];
+            locations[0] = theL;
+            System.arraycopy(locationstemp, 0, locations, 1, locationstemp.length);
+        }
+        else {
+            for (int i = 0; i < nbL; i++) {
+                if (locationstemp[i] == theL)
+                    IDtheL = locationstempID[i];
+            }
+            locations = locationstemp;
+        }
+
         final Spinner spinnerL = (Spinner) findViewById(R.id.LocationsS);
 
-        ArrayAdapter<String> adapterB = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, buildings) {
-
-            @Override
-            public int getCount() {
-                int c = super.getCount();
-                if (spinnerB.getSelectedItemPosition() < c - 1) return c;
-                return c > 0 ? c - 1 : c;
-            }
-        };
-        spinnerB.setAdapter(adapterB);
-
-        ArrayAdapter<String> adapterL = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, locations) {
-
-            @Override
-            public int getCount() {
-                int c = super.getCount();
-                if (spinnerL.getSelectedItemPosition() < c - 1) return c;
-                return c > 0 ? c - 1 : c;
-            }
-        };
+        adapterL = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
         spinnerL.setAdapter(adapterL);
+        spinnerL.setPrompt(getResources().getString(R.string.loc));
+        spinnerL.setSelection(adapterL.getPosition(theL));
+
+        String[] buildings;
+
+        if (theB == null) {
+            theB = getResources().getString(R.string.bui);
+            buildings = new String[1];
+            buildings[0] = theB;
+        } else {
+            int nbPossib = 0;
+            for (int i = 0; i < nbB; i++) {
+                if (buildingstempIDREF[i] == IDtheL)
+                    nbPossib++;
+            }
+            buildings = new String[nbPossib];
+            int j=0;
+            for (int i = 0; i < nbB; i++) {
+                if (buildingstempIDREF[i] == IDtheL) {
+                    buildings[j] = buildingstemp[i];
+                    j++;
+                }
+            }
+        }
+
+        final Spinner spinnerB = (Spinner) findViewById(R.id.BuildingsS);
+
+        adapterB = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, buildings);
+        spinnerB.setAdapter(adapterB);
+        spinnerB.setPrompt(getResources().getString(R.string.bui));
+        spinnerB.setSelection(adapterB.getPosition(theB));
+
+        ref = this;
+
+        spinnerL.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                String temp = spinnerL.getSelectedItem().toString();
+
+                String[] buildings;
+
+                if (temp != getResources().getString(R.string.loc)) {
+
+                    String IDtheL;
+                    IDtheL = null;
+                    for (int i = 0; i < nbL; i++) {
+                        if (temp.equals(locationstemp[i]))
+                            IDtheL = locationstempID[i];
+                    }
+
+                    int nbPossib = 0;
+                    for (int i = 0; i < nbB; i++) {
+                        if (IDtheL.equals(buildingstempIDREF[i]))
+                            nbPossib++;
+                    }
+
+                    buildings = new String[nbPossib];
+
+                    int j = 0;
+                    for (int i = 0; i < nbB; i++) {
+                        if (IDtheL.equals(buildingstempIDREF[i])) {
+                            buildings[j] = buildingstemp[i];
+                            j++;
+                        }
+                    }
+                }
+                else {
+                    buildings = new String[1];
+                    buildings[0] = getResources().getString(R.string.bui);
+                }
+
+                adapterB = new ArrayAdapter<String>(ref, android.R.layout.simple_spinner_item, buildings);
+                spinnerB.setAdapter(adapterB);
+                spinnerB.setSelection(0);
+
+                // AE
+                for (int z = 0; z < buildings.length; z++) {
+                    System.out.println(buildings[z]);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        });
     }
 
     private void initDPTPNP() {
@@ -199,7 +306,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         View newView = getLayoutInflater().inflate(R.layout.options, null, false);
         newView.setBackgroundColor(Color.WHITE);
 
-        String[] options = ProfileActivity.loadArray(WebServiceTask.preferencesOptions, this);
+        String[] options = ProfileActivity.loadArray(WebServiceTask.preferencesSpecifications, this);
 
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, options);
         ListView lv = (ListView) newView.findViewById(R.id.OptionsList);
@@ -224,7 +331,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
 
     public void retrieveR() {
 
-        WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_REQ_TASK, this, "Inquiring...");
+        WebServiceTask wst = new WebServiceTask(WebServiceTask.POST_REQ_TASK, this, getResources().getString(R.string.req));
 
         Spinner spinnerB = (Spinner) findViewById(R.id.BuildingsS);
         String selectedBuilding = spinnerB.getSelectedItem().toString();
@@ -260,7 +367,15 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         wst.addNameValuePair("selectedNumber", selectedNumber);
         wst.addNameValuePair("selectedOptions", selectedOptions);
 
-        wst.execute(new String[]{getResources().getString(R.string.services_url) });
+        //String theURL = getResources().getString(R.string.services_url);
+        String theURL = "http://pastebin.com/raw/1jeP7EDM";
+        wst.execute(new String[]{theURL});
+
+        /*
+            test avec pastebin :
+
+            [{"ID":1,"idBuilding":1,"nom":"N1","etage":0},{"ID":2,"idBuilding":1,"nom":"N2","etage":1},{"ID":3,"idBuilding":1,"nom":"N3","etage":2}]
+         */
     }
 
     public void Results() {

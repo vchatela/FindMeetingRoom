@@ -1,6 +1,5 @@
 <resources>
-    <!-- http://localhost:80/services -->
-    <string name="services_url">http://10.32.2.216:8080/RestWebServiceDemo/rest/person</string>
+    <string name="services_url">http://192.168.0.101:8080/meetingroom/services/</string>
     <string name="app_name">FMR App</string>
     <string name="about">A propos</string>
     <string name="connect">Connexion</string>
@@ -18,4 +17,11 @@
     <string name="search_s">RECHERCHER</string>
     <string name="profile_t">Sélectionnez site et batiment préférés :</string>
     <string name="profile_confirm">OK</string>
+    <string name="cea">Connexion : ETAPE 1/3</string>
+    <string name="ceb">Connexion : ETAPE 2/3</string>
+    <string name="cec">Connexion : ETAPE 3/3</string>
+    <string name="sel_error">Erreur, sélection incorrecte !</string>
+    <string name="bui">Batiment</string>
+    <string name="loc">Site</string>
+    <string name="req">Requête</string>
 </resources>

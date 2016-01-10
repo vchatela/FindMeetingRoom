@@ -3,15 +3,32 @@ package com.net.sopra.findmeetingroom;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 public class ProfileActivity extends Activity implements View.OnClickListener {
 
     private Button OK;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
+    private Context ref;
+
+    private ArrayAdapter<String> adapterL;
+    private ArrayAdapter<String> adapterB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +38,9 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
         OK = (Button) findViewById(R.id.Oprofile);
         OK.setOnClickListener(this);
         setSpinner();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -29,18 +49,24 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
 
             case R.id.Oprofile:
 
-                // saving the choices
-                Spinner spinnerB = (Spinner) findViewById(R.id.BuildingsP);
                 Spinner spinnerL = (Spinner) findViewById(R.id.LocationsP);
-                String favB = spinnerB.getSelectedItem().toString();
                 String favL = spinnerL.getSelectedItem().toString();
-                SharedPreferences prefs = this.getSharedPreferences(WebServiceTask.preferencesname, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(WebServiceTask.favoriteBuilding, favB);
-                editor.putString(WebServiceTask.favoriteLocation, favL);
-                editor.commit();
 
-                this.buttonOK();
+                // saving the choices
+                if (favL == getResources().getString(R.string.loc))
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.sel_error), Toast.LENGTH_LONG).show();
+                else {
+                    Spinner spinnerB = (Spinner) findViewById(R.id.BuildingsP);
+                    String favB = spinnerB.getSelectedItem().toString();
+
+                    SharedPreferences prefs = this.getSharedPreferences(WebServiceTask.preferencesname, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString(WebServiceTask.favoriteBuilding, favB);
+                    editor.putString(WebServiceTask.favoriteLocation, favL);
+                    editor.commit();
+
+                    this.buttonOK();
+                }
 
                 break;
         }
@@ -51,7 +77,7 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
         SharedPreferences prefs = mContext.getSharedPreferences(WebServiceTask.preferencesname, Context.MODE_PRIVATE);
         int size = prefs.getInt(arrayName + "_size", 0);
         String array[] = new String[size];
-        for(int i=0;i<size;i++)
+        for (int i = 0; i < size; i++)
             array[i] = prefs.getString(arrayName + "_" + i, null);
         return array;
     }
@@ -64,55 +90,171 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
 
     // used to set the content of the Spinners
     public void setSpinner() {
-        String[] buildingstemp = loadArray(WebServiceTask.preferencesBuildings, this);
-        String[] locationstemp = loadArray(WebServiceTask.preferencesLocations, this);
 
-        String theB = loadString(WebServiceTask.favoriteBuilding, this);
+        final String[] locationstemp = loadArray(WebServiceTask.preferencesLocations, this);
+        final String[] locationstempID = loadArray(WebServiceTask.preferencesLocationsID, this);
+
+        final String[] buildingstemp = loadArray(WebServiceTask.preferencesBuildings, this);
+        final String[] buildingstempIDREF = loadArray(WebServiceTask.preferencesBuildingsIDREF, this);
+
         String theL = loadString(WebServiceTask.favoriteLocation, this);
+        String theB = loadString(WebServiceTask.favoriteBuilding, this);
 
-        if  (theB==null)
-            theB = "Batiment";
-        if  (theL==null)
-            theL = "Site";
+        final int nbL = locationstemp.length;
+        final int nbB = buildingstemp.length;
 
-        String[] buildings = new String[buildingstemp.length + 1];
-        String[] locations = new String[locationstemp.length + 1];
-        locations[0]=theL;
-        buildings[0]=theB;
-        System.arraycopy(locationstemp, 0, locations, 1, locationstemp.length);
-        System.arraycopy(buildingstemp, 0, buildings, 1, buildingstemp.length);
+        String[] locations;
 
-        final Spinner spinnerB = (Spinner) findViewById(R.id.BuildingsP);
+        String IDtheL;
+        IDtheL = "";
+        if (theL == null) {
+            theL = getResources().getString(R.string.loc);
+            locations = new String[nbL + 1];
+            locations[0] = theL;
+            System.arraycopy(locationstemp, 0, locations, 1, locationstemp.length);
+        }
+        else {
+            for (int i = 0; i < nbL; i++) {
+                if (locationstemp[i] == theL)
+                    IDtheL = locationstempID[i];
+            }
+            locations = locationstemp;
+        }
+
         final Spinner spinnerL = (Spinner) findViewById(R.id.LocationsP);
 
-        ArrayAdapter<String> adapterB = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, buildings) {
-
-            @Override
-            public int getCount() {
-                int c = super.getCount();
-                if (spinnerB.getSelectedItemPosition() < c - 1) return c;
-                return c > 0 ? c - 1 : c;
-            }
-        };
-        spinnerB.setAdapter(adapterB);
-
-        ArrayAdapter<String> adapterL = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, locations) {
-
-            @Override
-            public int getCount() {
-                int c = super.getCount();
-                if (spinnerL.getSelectedItemPosition() < c - 1) return c;
-                return c > 0 ? c - 1 : c;
-            }
-        };
+        adapterL = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
         spinnerL.setAdapter(adapterL);
+        spinnerL.setPrompt(getResources().getString(R.string.loc));
+        spinnerL.setSelection(adapterL.getPosition(theL));
+
+        String[] buildings;
+
+        if (theB == null) {
+            theB = getResources().getString(R.string.bui);
+            buildings = new String[1];
+            buildings[0] = theB;
+        } else {
+            int nbPossib = 0;
+            for (int i = 0; i < nbB; i++) {
+                if (buildingstempIDREF[i] == IDtheL)
+                    nbPossib++;
+            }
+            buildings = new String[nbPossib];
+            int j=0;
+            for (int i = 0; i < nbB; i++) {
+                if (buildingstempIDREF[i] == IDtheL) {
+                    buildings[j] = buildingstemp[i];
+                    j++;
+                }
+            }
+        }
+
+        final Spinner spinnerB = (Spinner) findViewById(R.id.BuildingsP);
+
+        adapterB = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, buildings);
+        spinnerB.setAdapter(adapterB);
+        spinnerB.setPrompt(getResources().getString(R.string.bui));
+        spinnerB.setSelection(adapterB.getPosition(theB));
+
+        ref = this;
+
+        spinnerL.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                String temp = spinnerL.getSelectedItem().toString();
+
+                String[] buildings;
+
+                if (temp != getResources().getString(R.string.loc)) {
+
+                    String IDtheL;
+                    IDtheL = null;
+                    for (int i = 0; i < nbL; i++) {
+                        if (temp.equals(locationstemp[i]))
+                            IDtheL = locationstempID[i];
+                    }
+
+                    int nbPossib = 0;
+                    for (int i = 0; i < nbB; i++) {
+                        if (IDtheL.equals(buildingstempIDREF[i]))
+                            nbPossib++;
+                    }
+
+                    buildings = new String[nbPossib];
+
+                    int j = 0;
+                    for (int i = 0; i < nbB; i++) {
+                        if (IDtheL.equals(buildingstempIDREF[i])) {
+                            buildings[j] = buildingstemp[i];
+                            j++;
+                        }
+                    }
+                }
+                else {
+                    buildings = new String[1];
+                    buildings[0] = getResources().getString(R.string.bui);
+                }
+
+                adapterB = new ArrayAdapter<String>(ref, android.R.layout.simple_spinner_item, buildings);
+                spinnerB.setAdapter(adapterB);
+                spinnerB.setSelection(0);
+
+                // AE
+                for (int z = 0; z < buildings.length; z++) {
+                    System.out.println(buildings[z]);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        });
     }
 
-    protected void buttonOK()
-    {
+    protected void buttonOK() {
         onBackPressed();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Profile Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.net.sopra.findmeetingroom/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Profile Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.net.sopra.findmeetingroom/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
 }

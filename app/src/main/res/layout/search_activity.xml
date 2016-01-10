@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="360dp"
         android:layout_height="55dp"
         android:id="@+id/LocationsS"
         android:layout_below="@+id/Criteria"
@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="360dp"
         android:layout_height="55dp"
         android:id="@+id/BuildingsS"
         android:layout_below="@+id/LocationsS"
