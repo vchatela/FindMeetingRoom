@@ -1,5 +1,6 @@
 package com.net.sopra.findmeetingroom;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -7,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,9 +21,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.Collator;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.TreeSet;
@@ -103,13 +105,40 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                 String selectedEndHour = etextEH.getText().toString();
                 EditText etextN = (EditText) findViewById(R.id.NumberPeople);
                 String selectedNumber = etextN.getText().toString();
+
+                SimpleDateFormat parsertime = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat parserdate = new SimpleDateFormat("dd/MM/yyyy");
+                Date selectedEndDateDATE;
+                Date selectedBeginDateDATE;
+                Date selectedBeginHourTIME;
+                Date selectedEndHourTIME;
+                Boolean check7 = Boolean.FALSE;
+                Boolean check8 = Boolean.FALSE;
+                try {
+                    selectedEndDateDATE = parserdate.parse(selectedEndDate);
+                    selectedBeginDateDATE = parserdate.parse(selectedBeginDate);
+                    selectedBeginHourTIME = parsertime.parse(selectedBeginHour);
+                    selectedEndHourTIME = parsertime.parse(selectedEndHour);
+                    int tempdate = (selectedBeginDateDATE.compareTo(selectedEndDateDATE));
+                    if (tempdate>0){
+                        check7 = Boolean.TRUE;
+                    }
+                    int temptime = (selectedBeginHourTIME.compareTo(selectedEndHourTIME));
+                    if (temptime>=0){
+                        check7 = Boolean.TRUE;
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 Boolean check1 = (selectedLocation.equals(getResources().getString(R.string.loc)));
                 Boolean check2 = (selectedBeginDate.equals(getResources().getString(R.string.search_d)));
                 Boolean check3 = (selectedEndDate.equals(getResources().getString(R.string.search_df)));
                 Boolean check4 = (selectedBeginHour.equals(getResources().getString(R.string.search_ha)));
                 Boolean check5 = (selectedEndHour.equals(getResources().getString(R.string.search_hb)));
                 Boolean check6 = (selectedNumber.equals(getResources().getString(R.string.search_n)));
-                if (check1 || check2 || check3 || check4 || check5 || check6)
+
+                if (check1 || check2 || check3 || check4 || check5 || check6 || check7 || check8)
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.sel_error), Toast.LENGTH_LONG).show();
                 else {
                     retrieveR();
