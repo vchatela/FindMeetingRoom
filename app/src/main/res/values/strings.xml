@@ -24,4 +24,5 @@
     <string name="bui">Batiment</string>
     <string name="loc">Site</string>
     <string name="req">Requête</string>
+    <string name="aures">AUCUN RESULTAT</string>
 </resources>
