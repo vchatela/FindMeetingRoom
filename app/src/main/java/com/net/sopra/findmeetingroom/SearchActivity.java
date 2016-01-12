@@ -387,10 +387,10 @@ public class SearchActivity extends Activity implements View.OnClickListener {
             while (iterator.hasNext()) {
                 toption = iterator.next();
                 for (int i = 0; i < nbO; i++) {
-                    if (optionstemp[i] == toption)
+                    if (optionstemp[i].equals(toption))
                         toption = optionstempID[i];
                 }
-                if (selectedOptions == "")
+                if (selectedOptions.equals(""))
                     selectedOptions = toption;
                 else
                     selectedOptions = selectedOptions + "#" + toption;
@@ -401,7 +401,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         String[] locationstempID = ProfileActivity.loadArray(WebServiceTask.preferencesLocationsID, this);
         int nbL = locationstemp.length;
         for (int i = 0; i < nbL; i++) {
-            if (locationstemp[i] == selectedLocation)
+            if (locationstemp[i].equals(selectedLocation))
                 selectedLocation = locationstempID[i];
         }
 
@@ -409,7 +409,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         String[] buildingstempIDREF = ProfileActivity.loadArray(WebServiceTask.preferencesBuildingsIDREF, this);
         int nbB = buildingstemp.length;
         for (int i = 0; i < nbB; i++) {
-            if (buildingstemp[i] == selectedBuilding)
+            if (buildingstemp[i].equals(selectedBuilding))
                 selectedBuilding = buildingstempIDREF[i];
         }
 
