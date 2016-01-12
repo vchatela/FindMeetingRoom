@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -192,29 +193,34 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
                 case GET_BL_TASK:
 
                     Type typeB = new TypeToken<ArrayList<Building>>() {}.getType();
-                    ArrayList<Building> buildingsList = gson.fromJson(reader, typeB);
-                    int nbB = buildingsList.size();
-                    String[] partsB = new String[nbB];
-                    String[] partsBIDREF = new String[nbB];
+                    try {
+                        ArrayList<Building> buildingsList = gson.fromJson(reader, typeB);
 
-                    i=0;
-                    Iterator<Building> itB = buildingsList.iterator();
-                    Building tempB;
-                    while (itB.hasNext()) {
-                        tempB = itB.next();
-                        partsB[i] = tempB.getnom();
-                        partsBIDREF[i] = String.valueOf(tempB.getLocation());
-                        i++;
+                        int nbB = buildingsList.size();
+                        String[] partsB = new String[nbB];
+                        String[] partsBIDREF = new String[nbB];
+
+                        i=0;
+                        Iterator<Building> itB = buildingsList.iterator();
+                        Building tempB;
+                        while (itB.hasNext()) {
+                            tempB = itB.next();
+                            partsB[i] = tempB.getnom();
+                            partsBIDREF[i] = String.valueOf(tempB.getLocation());
+                            i++;
+                        }
+
+                        editor.putInt(preferencesBuildings + "_size", nbB);
+                        editor.putInt(preferencesBuildingsIDREF + "_size", nbB);
+                        for(int j=0;j<nbB;j++) {
+                            editor.putString(preferencesBuildings + "_" + j, partsB[j]);
+                            editor.putString(preferencesBuildingsIDREF + "_" + j, partsBIDREF[j]);
+                        }
+                        editor.commit();
+                    }catch (Exception e){
+                        //TODO : manage Exception
+                        //MainActivity.runOnUIThread(Toast.makeText(WebServiceTask.this, "", Toast.LENGTH_SHORT).show());
                     }
-
-                    editor.putInt(preferencesBuildings + "_size", nbB);
-                    editor.putInt(preferencesBuildingsIDREF + "_size", nbB);
-                    for(int j=0;j<nbB;j++) {
-                        editor.putString(preferencesBuildings + "_" + j, partsB[j]);
-                        editor.putString(preferencesBuildingsIDREF + "_" + j, partsBIDREF[j]);
-                    }
-                    editor.commit();
-
                     break;
 
                 case GET_LL_TASK:
