@@ -33,7 +33,7 @@
     <EditText
         android:layout_width="180dp"
         android:layout_height="55dp"
-        android:text="@string/search_d"
+        android:hint="@string/search_d"
         android:id="@+id/Date"
         android:layout_below="@+id/BuildingsS"
         android:layout_marginTop="20dp"
@@ -42,7 +42,7 @@
     <EditText
         android:layout_width="180dp"
         android:layout_height="55dp"
-        android:text="@string/search_df"
+        android:hint="@string/search_df"
         android:id="@+id/DateF"
         android:layout_below="@+id/Date"
         android:layout_marginTop="20dp"
@@ -51,7 +51,7 @@
     <EditText
         android:layout_width="180dp"
         android:layout_height="55dp"
-        android:text="@string/search_ha"
+        android:hint="@string/search_ha"
         android:id="@+id/TimeA"
         android:layout_below="@+id/BuildingsS"
         android:layout_marginTop="20dp"
@@ -60,7 +60,7 @@
     <EditText
         android:layout_width="180dp"
         android:layout_height="55dp"
-        android:text="@string/search_hb"
+        android:hint="@string/search_hb"
         android:id="@+id/TimeB"
         android:layout_below="@+id/Date"
         android:layout_marginTop="20dp"
@@ -83,7 +83,7 @@
         android:digits="0123456789"
         android:ems="10"
         android:id="@+id/NumberPeople"
-        android:text="@string/search_n"
+        android:hint="@string/search_n"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/DateF"
         android:layout_alignParentRight="true" />
