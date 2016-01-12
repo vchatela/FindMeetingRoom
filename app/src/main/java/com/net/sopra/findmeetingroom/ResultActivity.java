@@ -23,7 +23,7 @@ public class ResultActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // POUR LES TESTS UNIQUEMENT
-        baseResult = "[{\"ID\":1,\"idBuilding\":1,\"nom\":\"N1\",\"etage\":0},{\"ID\":2,\"idBuilding\":1,\"nom\":\"N2\",\"etage\":1},{\"ID\":3,\"idBuilding\":1,\"nom\":\"N3\",\"etage\":2}]";
+        //baseResult = "[{\"ID\":1,\"idBuilding\":1,\"nom\":\"N1\",\"etage\":0},{\"ID\":2,\"idBuilding\":1,\"nom\":\"N2\",\"etage\":1},{\"ID\":3,\"idBuilding\":1,\"nom\":\"N3\",\"etage\":2}]";
         //baseResult = "";
 
         super.onCreate(savedInstanceState);

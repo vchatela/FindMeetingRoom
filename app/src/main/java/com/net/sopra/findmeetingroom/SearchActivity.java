@@ -422,8 +422,8 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         wst.addNameValuePair("selectedNumber", selectedNumber);
         wst.addNameValuePair("selectedOptions", selectedOptions);
 
-        //String theURL = getResources().getString(R.string.services_url);
-        String theURL = "http://pastebin.com/raw/1jeP7EDM";
+        String theURL = getResources().getString(R.string.services_url) + "/roomlist";
+        //String theURL = "http://pastebin.com/raw/1jeP7EDM";
         wst.execute(new String[]{theURL});
 
         /*
