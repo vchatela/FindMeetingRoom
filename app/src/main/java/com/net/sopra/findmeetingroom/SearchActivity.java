@@ -376,15 +376,41 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         String selectedEndHour = etextEH.getText().toString();
         EditText etextN = (EditText) findViewById(R.id.NumberPeople);
         String selectedNumber = etextN.getText().toString();
+
         String selectedOptions = "";
+        String[] optionstemp = ProfileActivity.loadArray(WebServiceTask.preferencesSpecifications, this);
+        String[] optionstempID = ProfileActivity.loadArray(WebServiceTask.preferencesSpecificationsID, this);
+        int nbO = optionstemp.length;
+        String toption;
         if (sOptions!=null) {
             Iterator<String> iterator = sOptions.iterator();
             while (iterator.hasNext()) {
+                toption = iterator.next();
+                for (int i = 0; i < nbO; i++) {
+                    if (optionstemp[i] == toption)
+                        toption = optionstempID[i];
+                }
                 if (selectedOptions == "")
-                    selectedOptions = iterator.next();
+                    selectedOptions = toption;
                 else
-                    selectedOptions = selectedOptions + "#" + iterator.next();
+                    selectedOptions = selectedOptions + "#" + toption;
             }
+        }
+
+        String[] locationstemp = ProfileActivity.loadArray(WebServiceTask.preferencesLocations, this);
+        String[] locationstempID = ProfileActivity.loadArray(WebServiceTask.preferencesLocationsID, this);
+        int nbL = locationstemp.length;
+        for (int i = 0; i < nbL; i++) {
+            if (locationstemp[i] == selectedLocation)
+                selectedLocation = locationstempID[i];
+        }
+
+        String[] buildingstemp = ProfileActivity.loadArray(WebServiceTask.preferencesBuildings, this);
+        String[] buildingstempIDREF = ProfileActivity.loadArray(WebServiceTask.preferencesBuildingsIDREF, this);
+        int nbB = buildingstemp.length;
+        for (int i = 0; i < nbB; i++) {
+            if (buildingstemp[i] == selectedBuilding)
+                selectedBuilding = buildingstempIDREF[i];
         }
 
         wst.addNameValuePair("selectedBuilding", selectedBuilding);

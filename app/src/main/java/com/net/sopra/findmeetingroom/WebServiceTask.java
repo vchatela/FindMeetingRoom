@@ -38,6 +38,7 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
     public static final String preferencesLocations = "lPrefs";
     public static final String preferencesLocationsID = "lPrefsID";
     public static final String preferencesSpecifications = "sPrefs";
+    public static final String preferencesSpecificationsID = "sPrefsID";
 
     public static final String favoriteBuilding = "fBui";
     public static final String favoriteLocation = "fLoc";
@@ -250,17 +251,23 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
                     ArrayList<Specification> specificationsList = gson.fromJson(reader, typeS);
                     int nbS = specificationsList.size();
                     String[] partsS = new String[nbS];
+                    String[] partsSID = new String[nbS];
 
                     i=0;
                     Iterator<Specification> itS = specificationsList.iterator();
+                    Specification tempS;
                     while (itS.hasNext()) {
-                        partsS[i] = itS.next().getSpecificationName();
+                        tempS = itS.next();
+                        partsS[i] = tempS.getSpecificationName();
+                        partsSID[i] = String.valueOf(tempS.getID());
                         i++;
                     }
 
                     editor.putInt(preferencesSpecifications + "_size", nbS);
+                    editor.putInt(preferencesSpecificationsID + "_size", nbS);
                     for(int j=0;j<nbS;j++) {
                         editor.putString(preferencesSpecifications + "_" + j, partsS[j]);
+                        editor.putString(preferencesSpecificationsID + "_" + j, partsSID[j]);
                     }
                     editor.commit();
 
