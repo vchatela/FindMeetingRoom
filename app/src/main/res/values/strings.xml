@@ -1,10 +1,10 @@
 <resources>
     <string name="services_url">http://192.168.0.101:8080/meetingroom/services/</string>
-    <string name="app_name">FMR App</string>
+    <string name="app_name">FindMeetingRoom</string>
     <string name="about">A propos</string>
     <string name="connect">Connexion</string>
     <string name="app_credits">INSA 4I, groupe BE A11</string>
-    <string name="app_descrip">version test</string>
+    <string name="app_descrip">Version V1.1</string>
     <string name="s_room">Chercher Salle</string>
     <string name="s_profile">Editer Profil</string>
     <string name="search_c">Critères de recherche :</string>
@@ -15,7 +15,7 @@
     <string name="search_hb">Heure fin</string>
     <string name="search_p">Particularités</string>
     <string name="search_s">RECHERCHER</string>
-    <string name="profile_t">Sélectionnez site et batiment préférés :</string>
+    <string name="profile_t">Sélectionnez le site et le batiment préférés :</string>
     <string name="profile_confirm">OK</string>
     <string name="cea">Connexion : ETAPE 1/3</string>
     <string name="ceb">Connexion : ETAPE 2/3</string>
