@@ -131,12 +131,12 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                     e.printStackTrace();
                 }
 
-                Boolean check1 = (selectedLocation.equals(getResources().getString(R.string.loc)));
-                Boolean check2 = (selectedBeginDate.equals(getResources().getString(R.string.search_d)));
-                Boolean check3 = (selectedEndDate.equals(getResources().getString(R.string.search_df)));
-                Boolean check4 = (selectedBeginHour.equals(getResources().getString(R.string.search_ha)));
-                Boolean check5 = (selectedEndHour.equals(getResources().getString(R.string.search_hb)));
-                Boolean check6 = (selectedNumber.equals(getResources().getString(R.string.search_n)));
+                Boolean check1 = (selectedLocation.equals(""));
+                Boolean check2 = (selectedBeginDate.equals(""));
+                Boolean check3 = (selectedEndDate.equals(""));
+                Boolean check4 = (selectedBeginHour.equals(""));
+                Boolean check5 = (selectedEndHour.equals(""));
+                Boolean check6 = (selectedNumber.equals(""));
 
                 if (check1 || check2 || check3 || check4 || check5 || check6 || check7 || check8)
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.sel_error), Toast.LENGTH_LONG).show();
@@ -381,7 +381,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         String[] optionstemp = ProfileActivity.loadArray(WebServiceTask.preferencesSpecifications, this);
         String[] optionstempID = ProfileActivity.loadArray(WebServiceTask.preferencesSpecificationsID, this);
         int nbO = optionstemp.length;
-        String toption;
+        String toption ="";
         if (sOptions!=null) {
             Iterator<String> iterator = sOptions.iterator();
             while (iterator.hasNext()) {
@@ -422,9 +422,9 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         wst.addNameValuePair("selectedNumber", selectedNumber);
         wst.addNameValuePair("selectedOptions", selectedOptions);
 
-        String theURL = getResources().getString(R.string.services_url) + "/roomlist";
+        String theURL = getResources().getString(R.string.services_url) + "roomlist";
         //String theURL = "http://pastebin.com/raw/1jeP7EDM";
-        wst.execute(new String[]{theURL});
+        wst.execute(theURL);
 
         /*
             test avec pastebin :
