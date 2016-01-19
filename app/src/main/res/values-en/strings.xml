@@ -1,0 +1,28 @@
+<resources>
+    <string name="services_url">http://192.168.0.101:8080/meetingroom/services/</string>
+    <string name="app_name">FindMeetingRoom</string>
+    <string name="about">About</string>
+    <string name="connect">Connect</string>
+    <string name="app_credits">INSA 4I, groupe BE A11</string>
+    <string name="app_descrip">Version V1.1</string>
+    <string name="s_room">Find a Room</string>
+    <string name="s_profile">Edit Profil</string>
+    <string name="search_c">Search criterias</string>
+    <string name="search_d">Start date</string>
+    <string name="search_df">End date</string>
+    <string name="search_n">Nb people</string>
+    <string name="search_ha">Start hour</string>
+    <string name="search_hb">End hour</string>
+    <string name="search_p">Specifications</string>
+    <string name="search_s">SEARCH</string>
+    <string name="profile_t">Select the site and the favourite building</string>
+    <string name="profile_confirm">OK</string>
+    <string name="cea">Connexion : STEP 1/3</string>
+    <string name="ceb">Connexion : STEP 2/3</string>
+    <string name="cec">Connexion : STEP 3/3</string>
+    <string name="sel_error">Error, incorrect selection !</string>
+    <string name="bui">Building</string>
+    <string name="loc">Site</string>
+    <string name="req">Request</string>
+    <string name="aures">NO RESULT</string>
+</resources>
