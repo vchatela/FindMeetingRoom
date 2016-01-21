@@ -180,7 +180,6 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
             SharedPreferences prefs = mContext.getSharedPreferences(preferencesname, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
 
-            //String reader;
             StringReader reader = new StringReader(response);
 
             Gson gson = new Gson();

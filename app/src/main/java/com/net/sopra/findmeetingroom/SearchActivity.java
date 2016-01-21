@@ -131,6 +131,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                     e.printStackTrace();
                 }
 
+                // incomplete verifications for the input datas
                 Boolean check1 = (selectedLocation.equals(""));
                 Boolean check2 = (selectedBeginDate.equals(""));
                 Boolean check3 = (selectedEndDate.equals(""));

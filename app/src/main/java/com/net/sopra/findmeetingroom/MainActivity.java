@@ -84,6 +84,7 @@ public class MainActivity extends Activity implements View.OnTouchListener, View
         startActivity(intent);
     }
 
+    // launching the webservices to retrieve the informations
     public void retrieveLBO() {
         String theURLB = getResources().getString(R.string.services_url) + "/buildinglist";
         WebServiceTask wstB = new WebServiceTask(WebServiceTask.GET_BL_TASK, this, getResources().getString(R.string.cea));
