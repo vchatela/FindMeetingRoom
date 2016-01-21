@@ -19,10 +19,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class ProfileActivity extends Activity implements View.OnClickListener {
 
     private Button OK;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
 
     private Context ref;
@@ -38,8 +34,6 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
         OK = (Button) findViewById(R.id.Oprofile);
         OK.setOnClickListener(this);
         setSpinner();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
@@ -222,8 +216,6 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
     public void onStart() {
         super.onStart();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.

@@ -86,27 +86,14 @@ public class MainActivity extends Activity implements View.OnTouchListener, View
 
     public void retrieveLBO() {
         String theURLB = getResources().getString(R.string.services_url) + "/buildinglist";
-        //String theURLB = "http://pastebin.com/raw/1jeP7EDM";
         WebServiceTask wstB = new WebServiceTask(WebServiceTask.GET_BL_TASK, this, getResources().getString(R.string.cea));
         wstB.execute(new String[]{theURLB});
         String theURLL = getResources().getString(R.string.services_url) + "/locationlist";
-        //String theURLL = "http://pastebin.com/raw/C4Uvgjhp";
         WebServiceTask wstL = new WebServiceTask(WebServiceTask.GET_LL_TASK, this, getResources().getString(R.string.ceb));
         wstL.execute(new String[]{theURLL});
         String theURLS = getResources().getString(R.string.services_url) + "/specificationlist";
-        //String theURLS = "http://pastebin.com/raw/x4fakwHS";
         WebServiceTask wstS = new WebServiceTask(WebServiceTask.GET_SL_TASK, this, getResources().getString(R.string.cec));
         wstS.execute(new String[]{theURLS});
-
-        /*
-            test avec pastebin :
-
-            [{"ID":1,"nom":"BA","idLocation":1},{"ID":2,"nom":"BB","idLocation":1},{"ID":3,"nom":"BC","idLocation":2},{"ID":4,"nom":"BD","idLocation":2},{"ID":5,"nom":"BE","idLocation":3}]
-
-            [{"ID":1,"nom":"LA"},{"ID":2,"nom":"LB"},{"ID":3,"nom":"LC"}]
-
-            [{"ID":1,"SpecificationName":"Telephone"},{"ID":2,"SpecificationName":"Visio"}]
-         */
     }
 
 }

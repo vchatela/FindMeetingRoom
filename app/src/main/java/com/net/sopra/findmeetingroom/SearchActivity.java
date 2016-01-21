@@ -423,14 +423,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         wst.addNameValuePair("selectedOptions", selectedOptions);
 
         String theURL = getResources().getString(R.string.services_url) + "roomlist";
-        //String theURL = "http://pastebin.com/raw/1jeP7EDM";
         wst.execute(theURL);
-
-        /*
-            test avec pastebin :
-
-            [{"ID":1,"idBuilding":1,"nom":"N1","etage":0},{"ID":2,"idBuilding":1,"nom":"N2","etage":1},{"ID":3,"idBuilding":1,"nom":"N3","etage":2}]
-         */
     }
 
     public void Results() {

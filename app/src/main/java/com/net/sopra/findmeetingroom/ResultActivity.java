@@ -22,15 +22,11 @@ public class ResultActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // POUR LES TESTS UNIQUEMENT
-        //baseResult = "[{\"ID\":1,\"idBuilding\":1,\"nom\":\"N1\",\"etage\":0},{\"ID\":2,\"idBuilding\":1,\"nom\":\"N2\",\"etage\":1},{\"ID\":3,\"idBuilding\":1,\"nom\":\"N3\",\"etage\":2}]";
-        //baseResult = "";
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.results_activity);
 
         String[] partsR;
-        baseResult="[{\"ID\":1,\"idBuilding\":1,\"nom\":\"Salle 1\",\"etage\":1},{\"ID\":4,\"idBuilding\":1,\"nom\":\"Salle 4\",\"etage\":3},{\"ID\":8,\"idBuilding\":1,\"nom\":\"Salle 8\",\"etage\":0},{\"ID\":13,\"idBuilding\":1,\"nom\":\"Salle 13\",\"etage\":1}]";
+        //baseResult="[{\"ID\":1,\"idBuilding\":1,\"nom\":\"Salle 1\",\"etage\":1},{\"ID\":4,\"idBuilding\":1,\"nom\":\"Salle 4\",\"etage\":3},{\"ID\":8,\"idBuilding\":1,\"nom\":\"Salle 8\",\"etage\":0},{\"ID\":13,\"idBuilding\":1,\"nom\":\"Salle 13\",\"etage\":1}]";
 
         if(baseResult==null || baseResult=="") {
             partsR = new String[1];
