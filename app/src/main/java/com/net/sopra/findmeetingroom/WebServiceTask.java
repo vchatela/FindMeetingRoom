@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -282,6 +281,7 @@ public class WebServiceTask extends AsyncTask<String, Integer, String> {
                 case POST_REQ_TASK:
 
                     ResultActivity.baseResult = response;
+                    System.out.println(response);
                     break;
             }
 

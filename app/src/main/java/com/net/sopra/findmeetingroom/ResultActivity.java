@@ -26,7 +26,7 @@ public class ResultActivity extends Activity {
         setContentView(R.layout.results_activity);
 
         String[] partsR;
-        //baseResult="[{\"ID\":1,\"idBuilding\":1,\"nom\":\"Salle 1\",\"etage\":1},{\"ID\":4,\"idBuilding\":1,\"nom\":\"Salle 4\",\"etage\":3},{\"ID\":8,\"idBuilding\":1,\"nom\":\"Salle 8\",\"etage\":0},{\"ID\":13,\"idBuilding\":1,\"nom\":\"Salle 13\",\"etage\":1}]";
+        baseResult="[{\"ID\":1,\"idBuilding\":1,\"nom\":\"Salle 1\",\"etage\":1},{\"ID\":4,\"idBuilding\":1,\"nom\":\"Salle 4\",\"etage\":3},{\"ID\":8,\"idBuilding\":1,\"nom\":\"Salle 8\",\"etage\":0},{\"ID\":13,\"idBuilding\":1,\"nom\":\"Salle 13\",\"etage\":1}]";
 
         if(baseResult==null || baseResult=="") {
             partsR = new String[1];
